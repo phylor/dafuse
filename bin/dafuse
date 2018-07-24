@@ -5,8 +5,6 @@ require 'yaml'
 if ARGV.count >= 2 && ARGV[0] == 'dump'
   target = ARGV[1]
   
-  puts Dir.pwd
-
   configuration = YAML.load_file('./dafuse.yml')
 
   puts "Dumping database #{target}.."
