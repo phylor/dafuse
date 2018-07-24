@@ -1,0 +1,2 @@
+class Dafuse
+end

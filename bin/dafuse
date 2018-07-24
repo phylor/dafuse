@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+
+if ARGV.count >= 2 && ARGV[0] == 'dump'
+  target = ARGV[1]
+  
+  puts Dir.pwd
+
+  configuration = YAML.load_file('./dafuse.yml')
+
+  puts "Dumping database #{target}.."
+
+  ssh_host = configuration[target]['ssh']['host']
+  ssh_user = configuration[target]['ssh']['user']
+  database_name = configuration[target]['database']['name']
+  database_user = configuration[target]['database']['user']
+
+  command = "ssh -t #{ssh_user}@#{ssh_host} 'su #{database_user} -lc \"pg_dump -d #{database_name}\"' > /tmp/database"
+
+  system command
+end
